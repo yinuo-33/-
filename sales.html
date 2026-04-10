@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>帕丝学堂 · 找到属于你的备考方案</title>
+<style>
+:root{--p:#2563eb;--pd:#1d4ed8;--pl:#eff6ff;--a:#f59e0b;--ad:#d97706;--bg:#f0f4ff;--card:#fff;--t:#1e293b;--m:#64748b;--bd:#e2e8f0;--g:#16a34a;--gl:#f0fdf4;--r:#dc2626;--rl:#fef2f2;--pp:#7c3aed;--pl2:#fdf4ff;--te:#0d9488;--r14:14px;--sh:0 4px 24px rgba(37,99,235,.1);--shl:0 12px 48px rgba(37,99,235,.15)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;line-height:1.6}
+header{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 50%,#7c3aed 100%);color:#fff;padding:40px 24px 36px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.05) 0%,transparent 70%);animation:glow 8s ease-in-out infinite}
+@keyframes glow{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,20px)}}
+header .logo{font-size:12px;letter-spacing:3px;opacity:.65;margin-bottom:8px;position:relative}
+header h1{font-size:28px;font-weight:800;margin-bottom:8px;position:relative}
+header p{font-size:14px;opacity:.8;position:relative}
+.stats-row{display:flex;justify-content:center;gap:28px;margin-top:18px;position:relative}
+.stat-item{text-align:center}.stat-num{font-size:26px;font-weight:800}.stat-label{font-size:11px;opacity:.7;margin-top:2px}
+.cd-hero{background:var(--card);border-radius:20px;box-shadow:var(--shl);padding:28px 24px;margin:-28px auto 0;max-width:900px;position:relative;z-index:10;border:2px solid var(--pl)}
+.cd-hero .ch-title{font-size:18px;font-weight:700;text-align:center;margin-bottom:18px;color:var(--t)}
+.cd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.cd-item{border-radius:14px;padding:18px;text-align:center;transition:transform .2s}
+.cd-item:hover{transform:translateY(-3px)}
+.cd-item .cd-name{font-size:12px;color:var(--m);margin-bottom:6px}
+.cd-item .cd-days{font-size:40px;font-weight:800;line-height:1}
+.cd-item .cd-label{font-size:11px;color:var(--m);margin-top:4px}
+.cd-item .cd-date{font-size:10px;color:var(--m);margin-top:6px;opacity:.7}
+.cd-cpa{background:linear-gradient(135deg,#eff6ff,#dbeafe);color:var(--p)}
+.cd-zj{background:linear-gradient(135deg,#f0fdf4,#dcfce7);color:var(--g)}
+.cd-cpa2{background:linear-gradient(135deg,#fff7ed,#fef9c3);color:var(--ad)}
+.cd-sw{background:linear-gradient(135deg,#fdf4ff,#ede9fe);color:var(--pp)}
+.container{max-width:900px;margin:0 auto;padding:0 16px 60px}
+.section{background:var(--card);border-radius:var(--r14);box-shadow:var(--sh);padding:28px 24px;margin-top:24px;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.section.visible{opacity:1;transform:translateY(0)}
+.sec-title{font-size:20px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.sec-title .ico{font-size:26px}
+.form-hero{background:var(--card);border-radius:20px;box-shadow:var(--shl);padding:32px 28px;margin-top:24px;border:2px solid var(--pl)}
+.form-header{text-align:center;margin-bottom:20px}
+.form-header h2{font-size:20px;font-weight:700;color:var(--p);margin-bottom:4px}
+.form-header p{font-size:13px;color:var(--m)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr}.stats-row{gap:14px}.cd-grid{grid-template-columns:1fr 1fr}.svc-grid{grid-template-columns:1fr}.daily-grid{grid-template-columns:1fr}.adv-list{grid-template-columns:1fr}}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg.full{grid-column:1/-1}
+.fl{font-size:13px;font-weight:600;display:flex;align-items:center;gap:3px}
+.fl .req{color:var(--r);font-size:14px}
+.fi,.fs{padding:11px 14px;border:1.5px solid var(--bd);border-radius:10px;font-size:14px;color:var(--t);background:#fff;outline:none;transition:border .2s,box-shadow .2s;font-family:inherit;width:100%}
+.fi:focus,.fs:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.f-btn{grid-column:1/-1;padding:14px 32px;background:linear-gradient(135deg,var(--p),var(--pp));color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s;font-family:inherit;margin-top:6px;letter-spacing:1px}
+.f-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.3)}
+.plan-card{background:linear-gradient(135deg,var(--pl),#e0e7ff);border-radius:16px;padding:24px;border:1.5px solid #dbeafe}
+.plan-badge{display:inline-block;background:var(--p);color:#fff;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:10px}
+.plan-card h3{font-size:18px;font-weight:700;margin-bottom:6px;color:var(--pd)}
+.plan-card .pd{font-size:14px;color:var(--m);margin-bottom:14px;line-height:1.7}
+.ps-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(37,99,235,.1)}
+.ps-item:last-child{border-bottom:none}
+.ps-num{width:30px;height:30px;border-radius:50%;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.ps-text .st{font-size:14px;font-weight:700;margin-bottom:2px}
+.ps-text .sd{font-size:13px;color:var(--m)}
+.three-round{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:16px}
+@media(max-width:600px){.three-round{grid-template-columns:1fr}}
+.rc{border-radius:14px;padding:18px;text-align:center;transition:transform .2s}
+.rc:hover{transform:translateY(-3px)}
+.rc .ri{font-size:32px;margin-bottom:8px}
+.rc .rt{font-size:14px;font-weight:700;margin-bottom:4px}
+.rc .rd{font-size:12px;color:var(--m);line-height:1.5}
+.r1{background:linear-gradient(135deg,#eff6ff,#dbeafe)}
+.r2{background:linear-gradient(135deg,#f0fdf4,#dcfce7)}
+.r3{background:linear-gradient(135deg,#fdf4ff,#ede9fe)}
+.rate-bar{text-align:center;margin-top:14px;background:linear-gradient(135deg,#eff6ff,#f0fdf4);border-radius:12px;padding:12px;font-size:14px;color:var(--p);font-weight:600}
+.rate-bar .rn{font-size:24px;font-weight:800;color:var(--g)}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.svc-item{background:#f8faff;border-radius:12px;padding:16px;border-left:4px solid var(--p);transition:transform .2s}
+.svc-item:hover{transform:translateX(4px)}
+.svc-item .si{font-size:22px;margin-bottom:6px}
+.svc-item .sn{font-size:14px;font-weight:700;margin-bottom:3px}
+.svc-item .svd{font-size:12px;color:var(--m);line-height:1.5}
+
+/* DAILY THREE THINGS */
+.daily-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:16px}
+@media(max-width:600px){.daily-grid{grid-template-columns:1fr}}
+.daily-card{background:#fff;border-radius:14px;padding:20px;text-align:center;border:2px solid var(--pl);transition:all .25s;position:relative}
+.daily-card:hover{border-color:var(--p);transform:translateY(-3px);box-shadow:0 6px 20px rgba(37,99,235,.1)}
+.daily-card .dc-num{position:absolute;top:-12px;left:50%;transform:translateX(-50%);width:24px;height:24px;border-radius:50%;background:var(--p);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.daily-card .dc-icon{font-size:30px;margin-bottom:8px;margin-top:6px}
+.daily-card .dc-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.daily-card .dc-desc{font-size:12px;color:var(--m);line-height:1.6;text-align:left}
+.daily-card .dc-example{font-size:11px;color:var(--p);background:var(--pl);border-radius:8px;padding:6px 10px;margin-top:8px;text-align:left;line-height:1.5}
+.daily-summary{margin-top:18px;background:linear-gradient(135deg,#1e3a8a,#2563eb);border-radius:14px;padding:20px;color:#fff;line-height:1.8}
+.daily-summary .ds-title{font-size:15px;font-weight:700;margin-bottom:8px}
+.daily-summary .ds-text{font-size:13px;opacity:.92}
+
+/* MATERIALS */
+.material-banner{margin-top:18px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:14px;padding:20px 22px;border-left:4px solid var(--g)}
+.material-banner .mb-title{font-size:15px;font-weight:700;color:var(--g);margin-bottom:8px}
+.material-banner .mb-text{font-size:13px;color:var(--t);line-height:1.8}
+.material-banner .mb-tag{display:inline-block;background:var(--g);color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;margin:2px 4px 2px 0}
+
+/* ADVANTAGE LIST */
+.adv-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+@media(max-width:600px){.adv-list{grid-template-columns:1fr}}
+.adv-item{background:#f8faff;border-radius:12px;padding:16px 18px;border-left:4px solid var(--p);transition:all .2s}
+.adv-item:hover{transform:translateX(4px);box-shadow:0 4px 16px rgba(37,99,235,.08)}
+.adv-item .adv-num{font-size:12px;font-weight:800;color:var(--p);margin-bottom:4px;opacity:.6}
+.adv-item .adv-title{font-size:14px;font-weight:700;margin-bottom:4px}
+.adv-item .adv-desc{font-size:12px;color:var(--m);line-height:1.5}
+.adv-bottom{margin-top:18px;background:linear-gradient(135deg,var(--p),var(--pp));border-radius:14px;padding:18px;color:#fff;text-align:center}
+.adv-bottom .ab-text{font-size:15px;font-weight:700;line-height:1.6}
+.adv-bottom .ab-formula{font-size:13px;opacity:.9;margin-top:8px}
+
+.t-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.t-card{background:#f8faff;border-radius:14px;padding:18px;cursor:pointer;transition:all .25s;border:1.5px solid transparent;text-align:center}
+.t-card:hover{border-color:var(--p);transform:translateY(-3px);box-shadow:0 6px 20px rgba(37,99,235,.12)}
+.t-card .ta{width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pp));color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 10px;font-weight:700}
+.t-card .tn{font-size:15px;font-weight:700;margin-bottom:3px}
+.t-card .ts{font-size:12px;color:var(--p);font-weight:600;margin-bottom:4px}
+.t-card .tb{font-size:12px;color:var(--m);line-height:1.4}
+.c-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.c-card{background:#f8faff;border-radius:14px;padding:18px;border:1.5px solid transparent;transition:all .25s}
+.c-card:hover{border-color:var(--g);transform:translateY(-2px);box-shadow:0 6px 20px rgba(22,163,74,.1)}
+.c-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.c-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--te));color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.c-name{font-size:14px;font-weight:700}
+.c-id{font-size:11px;color:var(--m)}
+.c-desc{font-size:12px;color:var(--m)}
+.c-result{background:var(--gl);border-radius:10px;padding:8px 12px;margin-top:8px;font-size:13px;font-weight:600;color:var(--g);text-align:center}
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.cert-grid{grid-template-columns:1fr}}
+.cert-card{border-radius:14px;padding:20px;color:#fff;position:relative;overflow:hidden}
+.cert-card::after{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:rgba(255,255,255,.08);border-radius:50%}
+.cert-cpa{background:linear-gradient(135deg,#1e3a8a,#2563eb)}
+.cert-zj{background:linear-gradient(135deg,#065f46,#16a34a)}
+.cert-card .ci{font-size:28px;margin-bottom:8px}
+.cert-card h3{font-size:17px;font-weight:700;margin-bottom:8px}
+.cert-card ul{list-style:none;padding:0}
+.cert-card li{font-size:13px;padding:3px 0 3px 18px;position:relative;opacity:.9}
+.cert-card li::before{content:'✓';position:absolute;left:0;font-weight:700}
+.lk-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.lk-grid{grid-template-columns:1fr}}
+.lk-card{display:flex;align-items:center;gap:12px;background:#f8faff;border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--t);border:1.5px solid transparent;transition:all .2s;cursor:pointer}
+.lk-card:hover{border-color:var(--p);transform:translateY(-2px);box-shadow:0 4px 16px rgba(37,99,235,.1)}
+.lk-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.lk-title{font-size:14px;font-weight:600}
+.lk-desc{font-size:11px;color:var(--m)}
+.price-toggle{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.ptab{padding:5px 16px;border-radius:20px;border:1.5px solid var(--bd);font-size:13px;font-weight:500;cursor:pointer;color:var(--m);transition:all .15s;background:#fff}
+.ptab.active,.ptab:hover{background:var(--p);color:#fff;border-color:var(--p)}
+.pc{display:none}.pc.active{display:block}
+.pr{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:#f8faff;border-radius:10px;margin-bottom:7px;transition:background .2s}
+.pr:hover{background:var(--pl)}
+.pr .pn{font-size:14px;font-weight:600}
+.pr .pp{font-size:17px;font-weight:800;color:var(--r)}
+.pr .ptag{font-size:10px;background:var(--a);color:#fff;padding:2px 7px;border-radius:6px;margin-left:6px}
+.btm-cta{background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);border-radius:20px;padding:36px 28px;text-align:center;color:#fff;margin-top:24px;position:relative;overflow:hidden}
+.btm-cta::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.05) 0%,transparent 60%)}
+.btm-cta h2{font-size:22px;font-weight:800;margin-bottom:8px;position:relative}
+.btm-cta p{font-size:14px;opacity:.85;margin-bottom:18px;position:relative}
+.cta-btn{display:inline-block;padding:14px 44px;background:linear-gradient(135deg,var(--a),var(--ad));color:#fff;border-radius:30px;font-size:16px;font-weight:700;cursor:pointer;border:none;transition:all .2s;text-decoration:none;position:relative}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,158,11,.4)}
+.modal-ov{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-ov.show{display:flex}
+.modal-box{background:#fff;border-radius:20px;padding:28px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:mIn .3s ease}
+@keyframes mIn{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-box h3{font-size:17px;font-weight:700;margin-bottom:6px;color:var(--p)}
+.modal-box p{font-size:13px;color:var(--m);margin-bottom:14px}
+.modal-box img{max-width:180px;border-radius:12px;margin-bottom:14px;border:2px solid var(--pl)}
+.m-close{padding:10px 32px;background:var(--bd);color:var(--t);border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;font-family:inherit}
+.m-close:hover{background:#d1d5db}
+.tm-content{text-align:left}
+.tm-header{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.tm-av{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pp));color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;flex-shrink:0}
+.tm-name{font-size:17px;font-weight:700}.tm-sub{font-size:13px;color:var(--p);font-weight:600}
+.tm-bio{font-size:14px;line-height:1.8;color:var(--t);background:#f8faff;border-radius:12px;padding:14px}
+.float-cta{position:fixed;bottom:24px;right:24px;z-index:1000;display:none}
+.float-cta.show{display:block}
+.f-btn{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pp));color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(37,99,235,.4);transition:transform .2s;display:flex;align-items:center;justify-content:center}
+.f-btn:hover{transform:scale(1.1)}
+.footer{text-align:center;padding:20px;font-size:12px;color:var(--m);border-top:1px solid var(--bd);margin-top:24px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">帕丝学堂 · PASIXUETANG</div>
+  <h1>🎓 找到属于你的备考方案</h1>
+  <p>30秒填写信息，获取专属学习规划 + 班型推荐</p>
+  <div class="stats-row">
+    <div class="stat-item"><div class="stat-num">92%</div><div class="stat-label">单科通过率</div></div>
+    <div class="stat-item"><div class="stat-num">5000+</div><div class="stat-label">服务学员</div></div>
+    <div class="stat-item"><div class="stat-num">24h</div><div class="stat-label">答疑响应</div></div>
+  </div>
+</header>
+
+<div class="cd-hero">
+  <div class="ch-title">⏰ 2026年考试倒计时</div>
+  <div class="cd-grid">
+    <div class="cd-item cd-cpa"><div class="cd-name">CPA 专业阶段</div><div class="cd-days" id="d1">--</div><div class="cd-label">天</div><div class="cd-date">预计 2026年8月29-30日</div></div>
+    <div class="cd-item cd-cpa2"><div class="cd-name">CPA 综合阶段</div><div class="cd-days" id="d2" style="color:var(--ad)">--</div><div class="cd-label">天</div><div class="cd-date">预计 2026年8月30日</div></div>
+    <div class="cd-item cd-zj"><div class="cd-name">中级会计职称</div><div class="cd-days" id="d3" style="color:var(--g)">--</div><div class="cd-label">天</div><div class="cd-date">预计 2026年9月5-6日</div></div>
+    <div class="cd-item cd-sw"><div class="cd-name">税务师</div><div class="cd-days" id="d4" style="color:var(--pp)">--</div><div class="cd-label">天</div><div class="cd-date">预计 2026年11月初</div></div>
+  </div>
+</div>
+
+<div class="container">
+<div class="form-hero" id="formSec">
+  <div class="form-header">
+    <h2>📋 免费获取专属备考方案</h2>
+    <p>填写信息后，系统将智能匹配最优备考计划</p>
+  </div>
+  <div class="form-grid">
+    <div class="fg"><label class="fl">您的身份 <span class="req">*</span></label><select class="fs" id="f1"><option value="">请选择</option><option value="在职">在职人员</option><option value="学生">在校学生</option><option value="宝妈">全职宝妈</option><option value="自由">自由职业</option><option value="其他">其他</option></select></div>
+    <div class="fg"><label class="fl">备考证书 <span class="req">*</span></label><select class="fs" id="f2"><option value="">请选择</option><option value="CPA">CPA（注册会计师）</option><option value="中级">中级会计职称</option><option value="CPA+中级">CPA + 中级</option><option value="税务师">税务师</option></select></div>
+    <div class="fg"><label class="fl">计划几年拿证 <span class="req">*</span></label><select class="fs" id="f3"><option value="">请选择</option><option value="1年">1年</option><option value="2年">2年</option><option value="3年">3年</option></select></div>
+    <div class="fg"><label class="fl">每周学习时间 <span class="req">*</span></label><select class="fs" id="f4"><option value="">请选择</option><option value="20h+">20h以上（全职/充裕）</option><option value="10-20h">10~20小时</option><option value="5-10h">5~10小时</option><option value="不足5h">不足5小时</option></select></div>
+    <div class="fg"><label class="fl">会计基础</label><select class="fs" id="f5"><option value="">请选择</option><option value="零基础">零基础/非专业</option><option value="学过一点">学过一点</option><option value="有基础">有基础/专业或经验</option></select></div>
+    <div class="fg"><label class="fl">考证目的</label><select class="fs" id="f6"><option value="">请选择</option><option value="求职">求职/找工作</option><option value="晋升">晋升/加薪</option><option value="提升">提升专业能力</option><option value="转行">转行做财务</option><option value="其他">其他</option></select></div>
+    <button class="f-btn" onclick="go()">🚀 立即生成我的专属方案</button>
+  </div>
+</div>
+
+<!-- 专属方案 -->
+<div class="section" id="s1" style="display:none"><div class="sec-title"><span class="ico">📝</span>您的专属备考方案</div><div id="planBox"></div></div>
+
+<!-- 三轮备考法 -->
+<div class="section" id="s2" style="display:none">
+  <div class="sec-title"><span class="ico">🔄</span>帕丝学堂 · 三轮备考法</div>
+  <p style="font-size:14px;color:var(--m);margin-bottom:14px">科学分阶段备考，让每一分钟都有价值</p>
+  <div class="three-round">
+    <div class="rc r1"><div class="ri">📖</div><div class="rt">第一轮 · 打基础</div><div class="rd">系统听课 + 每日复盘<br>+ 章节习题<br>构建完整知识框架</div></div>
+    <div class="rc r2"><div class="ri">✏️</div><div class="rt">第二轮 · 强突破</div><div class="rd">大量刷题 + 主观题练习<br>+ 薄弱点专项攻克</div></div>
+    <div class="rc r3"><div class="ri">🚀</div><div class="rt">第三轮 · 冲冲刺</div><div class="rd">刷套题 + 应试技巧<br>+ 知识取舍 + 考点聚焦</div></div>
+  </div>
+  <div class="rate-bar">三轮科学备考，帕丝学堂单科通过率达 <span class="rn">92%</span> 🎯</div>
+</div>
+
+<!-- 四步带学服务 -->
+<div class="section" id="s3" style="display:none">
+  <div class="sec-title"><span class="ico">🤝</span>四步带学服务</div>
+  <div class="svc-grid">
+    <div class="svc-item"><div class="si">📋</div><div class="sn">定计划</div><div class="svd">根据你的基础、时间和目标，制定专属学习计划</div></div>
+    <div class="svc-item"><div class="si">📌</div><div class="sn">带着学</div><div class="svd">每天提醒 + 检查复盘 + 随时答疑，全程陪伴</div></div>
+    <div class="svc-item"><div class="si">🔧</div><div class="sn">调计划</div><div class="svd">实时根据学习进度调整方案，不浪费一天</div></div>
+    <div class="svc-item"><div class="si">🎯</div><div class="sn">考前冲刺</div><div class="svd">筛选高频考点 + 应试技巧 + 模拟套题</div></div>
+  </div>
+</div>
+
+<!-- 老师每天三件事 -->
+<div class="section" id="s3b" style="display:none">
+  <div class="sec-title"><span class="ico">⏰</span>计划定好后，老师每天做三件事</div>
+  <div class="daily-grid">
+    <div class="daily-card">
+      <div class="dc-num">1</div>
+      <div class="dc-icon">🔔</div>
+      <div class="dc-title">到点提醒你学习</div>
+      <div class="dc-desc">你不用操心今天学什么，老师会明确告诉你当天要完成的内容。</div>
+    </div>
+    <div class="daily-card">
+      <div class="dc-num">2</div>
+      <div class="dc-icon">📝</div>
+      <div class="dc-title">检查你的复盘</div>
+      <div class="dc-desc">每天学完用自己话总结发给老师，老师帮你梳理知识点，发现理解偏差及时纠正。</div>
+      <div class="dc-example">💡 比如：你财管公式记混了，老师一看复盘就知道，马上帮你理清。</div>
+    </div>
+    <div class="daily-card">
+      <div class="dc-num">3</div>
+      <div class="dc-icon">💬</div>
+      <div class="dc-title">答疑（9:00-22:00）</div>
+      <div class="dc-desc">学习中遇到不懂的微信发给老师，当天回复，不限次数。</div>
+      <div class="dc-example">💡 你卡住的地方，老师帮你拆解逻辑，一语点破。</div>
+    </div>
+  </div>
+  <div class="daily-summary">
+    <div class="ds-title">💡 简单说：</div>
+    <div class="ds-text">方法 + 节奏 + 复盘都有人帮你做。不只学知识，<strong>怎么学、怎么记、怎么刷题、怎么提分</strong>，帮你避开弯路，给到你方法与规划。有人监督打卡、布置任务、检查成果，保证你真的学进去，而不是假装努力。</div>
+  </div>
+</div>
+
+<!-- 全套备考资料 -->
+<div class="section" id="s3c" style="display:none">
+  <div class="sec-title"><span class="ico">📚</span>全套备考资料，无需自己搜集</div>
+  <div class="material-banner">
+    <div class="mb-title">像这些资料我们全都有 👇</div>
+    <div style="margin:12px 0 8px;">
+      <span class="mb-tag">📖 精讲课程</span>
+      <span class="mb-tag">📝 章节习题</span>
+      <span class="mb-tag">📋 真题库</span>
+      <span class="mb-tag">🧠 思维导图</span>
+      <span class="mb-tag">📊 考点速记</span>
+      <span class="mb-tag">✍️ 主观题专项</span>
+      <span class="mb-tag">📘 电子讲义</span>
+      <span class="mb-tag">🎯 冲刺押题</span>
+      <span class="mb-tag">📥 模拟套卷</span>
+      <span class="mb-tag">⚙️ 错题本</span>
+    </div>
+    <div class="mb-text">
+      你<strong>不需要再花时间</strong>研究考纲、搜集资料、摸索方法。带学老师会为你做好一切规划，你只需要<strong style="color:var(--g)">"专注学习和执行"</strong>。<br><br>
+      每天该学什么、做什么题，都会清晰列明，并有老师督促答疑。<strong>最大化利用你的时间</strong>，让你有最简单有效的方法搞懂复杂的题目，帮你去搭建思维体系。
+    </div>
+  </div>
+</div>
+
+<!-- 导师团队 -->
+<div class="section" id="s4" style="display:none">
+  <div class="sec-title"><span class="ico">👨‍🏫</span>导师团队</div>
+  <p style="font-size:13px;color:var(--m);margin-bottom:14px">点击卡片查看老师详细介绍</p>
+  <div class="t-grid" id="tGrid"></div>
+</div>
+
+<!-- 学员案例 -->
+<div class="section" id="s5" style="display:none">
+  <div class="sec-title"><span class="ico">🏆</span>学员成功案例</div>
+  <div class="c-grid" id="cGrid"></div>
+</div>
+
+<!-- 一对一带学核心优势 -->
+<div class="section" id="s5b" style="display:none">
+  <div class="sec-title"><span class="ico">💎</span>一对一带学核心优势</div>
+  <div class="adv-list">
+    <div class="adv-item">
+      <div class="adv-num">01</div>
+      <div class="adv-title">🎯 完全针对性</div>
+      <div class="adv-desc">根据你的基础、时间、目标定制学习计划，不跟别人比进度，不浪费时间在你已经会的内容上。</div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-num">02</div>
+      <div class="adv-title">👀 有人盯、有人管、有人带</div>
+      <div class="adv-desc">解决自学最容易出现的问题：拖延、三天打鱼、不知道学什么、学偏了、学不会就放弃。</div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-num">03</div>
+      <div class="adv-title">💬 答疑不卡壳（9:00-22:00）</div>
+      <div class="adv-desc">遇到难点不用自己死磕、查半天资料还看不懂，效率远高于看课自学。</div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-num">04</div>
+      <div class="adv-title">📐 方法+节奏+复盘都有人帮你做</div>
+      <div class="adv-desc">不只学知识，怎么学、怎么记、怎么刷题、怎么提分，帮你避开弯路，给到你方法与规划。</div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-num">05</div>
+      <div class="adv-title">🔥 结果导向，强执行力</div>
+      <div class="adv-desc">有人监督打卡、布置任务、检查成果，保证你真的学进去，而不是假装努力。</div>
+    </div>
+  </div>
+  <div class="adv-bottom">
+    <div class="ab-text">💡 简单说：</div>
+    <div class="ab-formula">一对一带学 = 少走弯路 + 有人督促 + 专属老师</div>
+  </div>
+</div>
+
+<!-- 证书价值 -->
+<div class="section" id="s6" style="display:none">
+  <div class="sec-title"><span class="ico">🏛️</span>证书的价值</div>
+  <div class="cert-grid">
+    <div class="cert-card cert-cpa"><div class="ci">🏛️</div><h3>CPA 注册会计师</h3><ul><li>财会领域第一证，含金量最高</li><li>四大会计事务所敲门砖</li><li>年薪起点普遍 15~30 万+</li><li>唯一拥有审计签字权</li><li>全国仅 30 余万人持证</li></ul></div>
+    <div class="cert-card cert-zj"><div class="ci">📊</div><h3>中级会计职称</h3><ul><li>企业财务晋升必备证书</li><li>考过直接认定会计师资格</li><li>很多城市可落户加分</li><li>升职加薪硬性条件</li><li>考试难度适中，性价比高</li></ul></div>
+  </div>
+</div>
+
+<!-- 官网入口 -->
+<div class="section" id="s7" style="display:none">
+  <div class="sec-title"><span class="ico">🔗</span>官方报名入口</div>
+  <div class="lk-grid">
+    <a class="lk-card" href="https://cpaexam.cicpa.org.cn/" target="_blank"><div class="lk-icon" style="background:#eff6ff">📋</div><div><div class="lk-title">CPA 报名入口</div><div class="lk-desc">中注协 · 注会考试报名系统</div></div></a>
+    <a class="lk-card" href="https://www.cicpa.org.cn/ksfw/kscj/" target="_blank"><div class="lk-icon" style="background:#f0fdf4">🏆</div><div><div class="lk-title">CPA 成绩查询</div><div class="lk-desc">中注协 · 考试成绩查询</div></div></a>
+    <a class="lk-card" href="https://www.kjkszx.cn/" target="_blank"><div class="lk-icon" style="background:#fefce8">📝</div><div><div class="lk-title">中级 报名入口</div><div class="lk-desc">全国会计资格评价网</div></div></a>
+    <a class="lk-card" href="https://www.kjkszx.cn/" target="_blank"><div class="lk-icon" style="background:#fdf4ff">📊</div><div><div class="lk-title">中级 成绩查询</div><div class="lk-desc">全国会计资格评价网</div></div></a>
+  </div>
+</div>
+
+<!-- 班型价格 -->
+<div class="section" id="s8" style="display:none">
+  <div class="sec-title"><span class="ico">💼</span>班型与价格</div>
+  <div class="price-toggle">
+    <div class="ptab active" onclick="showPT('pc1',this)">CPA班型</div>
+    <div class="ptab" onclick="showPT('pc2',this)">中级班型</div>
+    <div class="ptab" onclick="showPT('pc3',this)">税务师班型</div>
+  </div>
+  <div id="pc1" class="pc active">
+    <div class="pr"><span class="pn">全科私教VIP班</span><span><span class="ptag">🔥推荐</span><span class="pp">¥18,800</span></span></div>
+    <div class="pr"><span class="pn">2年6科班</span><span><span class="ptag">热门</span><span class="pp">¥7,980</span></span></div>
+    <div class="pr"><span class="pn">3年6科班</span><span><span class="pp">¥10,999</span></span></div>
+    <div class="pr"><span class="pn">2年5科班</span><span><span class="pp">¥7,399</span></span></div>
+    <div class="pr"><span class="pn">2年4科班</span><span><span class="pp">¥6,980</span></span></div>
+    <div class="pr"><span class="pn">3科私教VIP班</span><span><span class="pp">¥11,800</span></span></div>
+    <div class="pr"><span class="pn">单科班</span><span><span class="pp">¥1,999起</span></span></div>
+  </div>
+  <div id="pc2" class="pc">
+    <div class="pr"><span class="pn">全科VIP保障带学班</span><span><span class="ptag">不过退费</span><span class="pp">¥9,999</span></span></div>
+    <div class="pr"><span class="pn">全科私教带学班</span><span><span class="ptag">热门</span><span class="pp">¥3,999</span></span></div>
+    <div class="pr"><span class="pn">1年2科</span><span><span class="pp">¥2,999</span></span></div>
+    <div class="pr"><span class="pn">1年1科</span><span><span class="pp">¥1,799</span></span></div>
+  </div>
+  <div id="pc3" class="pc">
+    <div class="pr"><span class="pn">全科班</span><span><span class="pp">¥6,980</span></span></div>
+    <div class="pr"><span class="pn">单科班</span><span><span class="pp">¥1,999</span></span></div>
+  </div>
+  <p style="font-size:12px;color:var(--m);margin-top:10px;text-align:center">* 支持免息分期（3/6/12期），具体优惠请咨询规划师</p>
+</div>
+
+<!-- 底部CTA -->
+<div class="btm-cta" id="s9" style="display:none">
+  <h2>🎓 现在报名，今年拿证</h2>
+  <p>名额有限，专业规划师 1 对 1 为你服务</p>
+  <button class="cta-btn" onclick="openQR()">💬 立即咨询报名</button>
+</div>
+
+</div>
+
+<div class="footer" id="ftEl" style="display:none">
+  帕丝学堂 · 专业备考带学服务<br>
+  官网：<a href="https://www.cicpa.org.cn/" target="_blank" style="color:var(--p)">CICPA中注协</a> · <a href="https://www.kjkszx.cn/" target="_blank" style="color:var(--p)">全国会计资格评价网</a>
+</div>
+
+<!-- 二维码弹窗 -->
+<div class="modal-ov" id="qrM">
+  <div class="modal-box">
+    <h3>💬 扫码添加规划师</h3>
+    <p>专业规划师为您 1 对 1 答疑解惑</p>
+    <img src="qrcode.png.jpg" alt="企业微信二维码" />
+    <p style="font-size:11px;color:var(--m)">长按或扫描二维码添加</p>
+    <button class="m-close" onclick="closeQR()">稍后再说</button>
+  </div>
+</div>
+
+<!-- 老师弹窗 -->
+<div class="modal-ov" id="tM">
+  <div class="modal-box">
+    <div class="tm-content" id="tMC"></div>
+    <button class="m-close" style="margin-top:14px" onclick="closeTM()">关闭</button>
+  </div>
+</div>
+
+<!-- 浮动咨询按钮 -->
+<div class="float-cta" id="fCta">
+  <button class="f-btn" onclick="openQR()" title="咨询报名">💬</button>
+</div>
+
+<script>
+var T=[
+{n:'猴哥帕丝',s:'创始人 · 主讲经济法',b:'CPA + 法考双证',bio:'帕丝学堂创始人，CPA持证+法律职业资格双证。主讲经济法科目，善于将枯燥法条转化为生动案例。创立"三轮备考法"，已帮助数千名学员成功通关。'},
+{n:'冯时',s:'主讲会计',b:'CPA + 税务师 + 经济师',bio:'三证在手，8年会计教学经验。擅长将复杂会计准则用生活化语言讲解，零基础学员也能轻松理解。注重底层逻辑，让学员真正掌握而非死记硬背。'},
+{n:'赵飞',s:'主讲财管 / 税法',b:'1年通过CPA 6科',bio:'CPA 6科一次性通过的学霸级老师。讲课逻辑清晰，善于总结解题套路。亲身经验告诉你，高效备考不是梦。'},
+{n:'任毅明',s:'主讲审计',b:'8年审计实战经验',bio:'8年会计师事务所审计实战经验，将理论与实务深度融合。开创审计科目"理解型教学"，帮助学员从审计思维出发看懂审计报告。'},
+{n:'封采',s:'主讲经济法',b:'2年拿下CPA+税务师+中级',bio:'2年考取三证。主讲经济法，擅长搭建知识框架，用思维导图串联考点。讲课风格亲切幽默，深受学员喜爱。'},
+{n:'李洪辉',s:'主讲战略',b:'云南省会计领军人才',bio:'云南省会计领军人才，企业战略管理实战专家。将战略理论与企业经营实践结合，让学员理解战略背后的商业逻辑。'},
+{n:'一立叁',s:'中级专属讲师',b:'中级实务 / 财管入门',bio:'帕丝学堂中级会计职称专属讲师。善于把握中级考试重点，为学员量身定制备考策略，深受中级学员好评。'}
+];
+var C=[
+{n:'王姐',id:'49岁在职会计',i:'👩‍💼',r:'2年通过CPA 6科',d:'每天下班后学习2小时，周末6小时'},
+{n:'张姐',id:'59岁宝妈',i:'👩',r:'2年通过CPA 5科',d:'零基础起步，证明了年龄不是障碍'},
+{n:'小李',id:'全职应届生',i:'👨‍🎓',r:'1年通过CPA 6科',d:'毕业后直接拿证，简历含金量拉满'},
+{n:'刘哥',id:'35岁在职财务',i:'👨‍💼',r:'2年通过CPA 6科',d:'边工作边备考，成功实现晋升'},
+{n:'小陈',id:'应届毕业生',i:'👩‍🎓',r:'毕业即拿证',d:'大四开始备考，毕业当年全科通过'},
+{n:'赵姐',id:'零基础转行',i:'👩‍💻',r:'3年通过CPA 6科',d:'从完全不懂到持证，成功转行财务'}
+];
+
+function cd(d){var t=new Date(d),n=new Date(),v=Math.ceil((t-n)/864e5);return v>0?v:0}
+document.getElementById('d1').textContent=cd('2026-08-29');
+document.getElementById('d2').textContent=cd('2026-08-30');
+document.getElementById('d3').textContent=cd('2026-09-06');
+document.getElementById('d4').textContent=cd('2026-11-01');
+
+function go(){
+  var f1=document.getElementById('f1').value,f2=document.getElementById('f2').value,f3=document.getElementById('f3').value,f4=document.getElementById('f4').value,f5=document.getElementById('f5').value,f6=document.getElementById('f6').value;
+  if(!f1||!f2||!f3||!f4){alert('请至少填写：身份、备考证书、计划几年拿证、每周学习时间');return}
+  document.getElementById('formSec').style.display='none';
+  var p=match(f1,f2,f3,f4,f5,f6);
+  renderPlan(p);
+  // 按顺序显示所有section
+  var ids=['s1','s2','s3','s3b','s3c','s4','s5','s5b','s6','s7','s8','s9','ftEl'];
+  ids.forEach(function(id,i){
+    setTimeout(function(){
+      var el=document.getElementById(id);
+      el.style.display='block';
+      el.classList.add('visible');
+    },200+i*220);
+  });
+  renderT();renderC();
+  setTimeout(function(){document.getElementById('fCta').classList.add('show')},ids.length*220+500);
+  setTimeout(function(){openQR()},180000);
+}
+
+function match(f1,f2,f3,f4,f5,f6){
+  var ft=f4==='20h+',no=f5==='零基础';
+  if(f2==='CPA'||f2==='CPA+中级'){
+    if(ft&&!no)return{badge:'🔥 全职冲刺方案',title:'1年通过CPA 6科',desc:'你是全职备考且有基础，时间充裕，适合直接冲刺6科。总时长约1500小时，按照三轮备考法严格执行。',steps:[{t:'第一轮（1~4月）· 打基础',d:'会计+税法+经济法+战略同步推进，每天听课+复盘+章节习题'},{t:'第二轮（5~7月）· 强突破',d:'刷题强化+主观题专项+推进财管+审计'},{t:'第三轮（8月）· 冲冲刺',d:'套题模拟+应试技巧+考点取舍+查漏补缺'}],rec:'推荐：全科私教VIP班 ¥18,800（含VIP小群+习题批改）'};
+    if(f3==='2年'||!ft)return{badge:'⭐ 在职推荐方案',title:'2年通过CPA 6科',desc:'对于在职/时间有限的学员，2年6科是最稳妥的选择。第一年先过3科建立信心，第二年攻克剩余3科。',steps:[{t:'第一年 · 3科（会计+税法+经济法）',d:'难度适中、关联性强，通过率最高。工作日1.5~2h，周末3~4h'},{t:'第二年 · 3科（审计+财管+战略）',d:'大科集中攻克，利用第一年的学习经验加速突破'},{t:'全程带学',d:'每天提醒+检查复盘+随时答疑，不用担心坚持不下去'}],rec:'推荐：2年6科班 ¥7,980（支持免息分期，每月仅¥665）'};
+    return{badge:'📚 稳扎稳打方案',title:'3年通过CPA 6科',desc:'基础薄弱或时间紧张，3年规划最合理。每年2科，稳步推进，压力最小。',steps:[{t:'第一年 · 经济法+战略',d:'小科先过，建立信心，熟悉考试节奏'},{t:'第二年 · 会计+税法',d:'核心科目，重点突破，两科关联紧密'},{t:'第三年 · 审计+财管',d:'大科最后攻克，有了前两年的基础更轻松'}],rec:'推荐：3年6科班 ¥10,999（支持免息分期）'};
+  }
+  if(f2==='中级')return{badge:'📊 中级职称方案',title:'1+1考季通过中级',desc:'中级共3科：中级会计实务、财务管理、经济法。帕丝学堂带学班含1+1考季保障（未过第二年免费再学）。',steps:[{t:'第一轮（1~4月）· 打基础',d:'三科同步开课，中级会计实务优先，夯实理论基础'},{t:'第二轮（5~7月）· 刷题强化',d:'历年真题+模拟题，财管计算题重点突破，经济法背诵'},{t:'第三轮（8~9月）· 考前冲刺',d:'套题模拟+知识梳理+易错点总结，每科至少5套模拟题'}],rec:'推荐：全科私教带学班 ¥3,999（1+1考季保障，不过免费再学）'};
+  return{badge:'📋 专属规划',title:'税务师备考方案',desc:'税务师共5科，备考周期建议2年。具体科目搭配请咨询规划师获取个性化方案。',steps:[{t:'第一步：评估基础',d:'规划师1对1了解你的专业背景和学习时间'},{t:'第二步：制定计划',d:'匹配最优科目组合，制定详细到每天的学习计划'},{t:'第三步：全程带学',d:'四步带学服务，每天监督+复盘+答疑'}],rec:'推荐：税务师全科 ¥6,980'};
+}
+
+function renderPlan(p){
+  var h='<div class="plan-card"><div class="plan-badge">'+p.badge+'</div><h3>'+p.title+'</h3><div class="pd">'+p.desc+'</div>';
+  p.steps.forEach(function(s,i){h+='<div class="ps-item"><div class="ps-num">'+(i+1)+'</div><div class="ps-text"><div class="st">'+s.t+'</div><div class="sd">'+s.d+'</div></div></div>';});
+  h+='<div style="margin-top:18px;background:linear-gradient(135deg,#fefce8,#fef9c3);border-radius:12px;padding:12px 16px;border-left:4px solid var(--a)"><div style="font-size:13px;font-weight:600;color:var(--ad)">💡 '+p.rec+'</div></div></div>';
+  document.getElementById('planBox').innerHTML=h;
+}
+
+function renderT(){
+  var h='';T.forEach(function(t,i){h+='<div class="t-card" onclick="showT('+i+')"><div class="ta">'+t.n[0]+'</div><div class="tn">'+t.n+'</div><div class="ts">'+t.s+'</div><div class="tb">'+t.b+'</div></div>';});
+  document.getElementById('tGrid').innerHTML=h;
+}
+function showT(i){
+  var t=T[i];
+  document.getElementById('tMC').innerHTML='<div class="tm-header"><div class="tm-av">'+t.n[0]+'</div><div><div class="tm-name">'+t.n+'</div><div class="tm-sub">'+t.s+'</div></div></div><div class="tm-bio">'+t.bio+'</div>';
+  document.getElementById('tM').classList.add('show');
+}
+function closeTM(){document.getElementById('tM').classList.remove('show')}
+
+function renderC(){
+  var h='';C.forEach(function(c){h+='<div class="c-card"><div class="c-header"><div class="c-avatar">'+c.i+'</div><div><div class="c-name">'+c.n+'</div><div class="c-id">'+c.id+'</div></div></div><div class="c-desc">'+c.d+'</div><div class="c-result">🎉 '+c.r+'</div></div>';});
+  document.getElementById('cGrid').innerHTML=h;
+}
+
+function showPT(id,el){
+  document.querySelectorAll('.pc').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.ptab').forEach(function(t){t.classList.remove('active')});
+  document.getElementById(id).classList.add('active');el.classList.add('active');
+}
+
+function openQR(){document.getElementById('qrM').classList.add('show')}
+function closeQR(){document.getElementById('qrM').classList.remove('show')}
+document.querySelectorAll('.modal-ov').forEach(function(ov){
+  ov.addEventListener('click',function(e){if(e.target===this)this.classList.remove('show')});
+});
+</script>
+</body>
+</html>
